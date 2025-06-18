@@ -22,3 +22,24 @@ def create_room(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+@csrf_exempt
+def delete_room(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            room_id = data.get('id')
+            if not room_id:
+                return JsonResponse({'error': 'Room ID is required'}, status=400)
+
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute("DELETE FROM rooms WHERE id = %s;", (room_id,))
+            conn.commit()
+            cur.close()
+            conn.close()
+
+            return JsonResponse({'message': f'Room with ID {room_id} deleted'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
