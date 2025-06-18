@@ -37,11 +37,15 @@ source .venv/bin/activate
 
 3. **Установи зависимости**
 
-pip install fastapi uvicorn pydantic
+pip install -r requirements.txt
 
-4. **Запусти сервер**
+4. **Применить миграции:**
 
-uvicorn main:app --reload
+python manage.py migrate
+
+5. **Запусти сервер**
+
+python manage.py runserver
 
 По умолчанию сервер доступен по адресу http://127.0.0.1:8000.
 
