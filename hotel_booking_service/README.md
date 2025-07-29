@@ -37,7 +37,11 @@ source .venv/bin/activate
 
 3. **Установи зависимости**
 
-pip install -r requirements.txt
+poetry install
+
+   **Запустить проект**
+
+poetry run python main.py
 
 4. **Применить миграции:**
 
